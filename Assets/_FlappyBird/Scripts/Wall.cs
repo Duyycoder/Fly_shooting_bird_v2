@@ -1,5 +1,6 @@
 using GameTool;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class Wall : BasePooling
 {
@@ -30,7 +31,18 @@ public class Wall : BasePooling
     for (int i = 0; i < 4; i++)
     {
         var blockType = (BlockType)Random.Range(0, 3);
-        
+        if (GameData.Instance.score <= 10)
+        {
+            blockType = (BlockType)Random.Range(0, 1);
+        }else
+        if (GameData.Instance.score <= 30)
+        {
+            blockType = (BlockType)Random.Range(0, 2);
+        }
+        else
+        {
+            blockType = (BlockType)Random.Range(1, 3);
+        }
         //cache
         var position = transform.position;
         var block = (Block)PoolingManager.Instance.GetObject(NamePrefabPool.Block, transform, position: new Vector3(position.x, posY[i], position.z));
